@@ -1,24 +1,52 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ScrollToTop from './helper/ScrollToTop';
-import { GlobalStyle } from "./components/common/styles/global.js";
+import React from "react";
+import "./App.css";
 
-import { PageNotFound, Home, Login, Register, ForgotPassword } from './pages';
+import { Container, Row, Col } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-function App() {
+import NavigationBar from "./components/NavigationBar";
+import Welcome from "./pages/Welcome";
+import UserList from "./pages/User/UserList";
+import Register from "./pages/User/Register";
+import Login from "./pages/User/Login";
+import Footer from "./components/Footer";
+require('dotenv').config();
+
+const App = () => {
+	window.onbeforeunload = (event) => {
+		const e = event || window.event;
+		e.preventDefault();
+		if (e) {
+			e.returnValue = "";
+		}
+		return "";
+	};
+
 	return (
 		<Router>
-			<GlobalStyle />
-			<ScrollToTop />
-			<Routes>
-				<Route exact path={`${process.env.PUBLIC_URL + "/"}`} element={<Home />} />
-				<Route exact path={`${process.env.PUBLIC_URL + "/login"}`} element={<Login />} />
-				<Route exact path={`${process.env.PUBLIC_URL + "/register"}`} element={<Register />} />
-				<Route exact path={`${process.env.PUBLIC_URL + "/forgotpassword"}`} element={<ForgotPassword />} />
-				<Route path={`${process.env.PUBLIC_URL + "/404"}`} element={<PageNotFound />} />
-			</Routes>
+			<NavigationBar />
+			<Container>
+				<Row>
+					<Col lg={12} className={"margin-top"}>
+						<Switch>
+							<Route path="/" exact component={Welcome} />
+							<Route path="/users" exact component={UserList} />
+							<Route path="/register" exact component={Register} />
+							<Route path="/login" exact component={Login} />
+							<Route
+								path="/logout"
+								exact
+								component={() => (
+									<Login message="User Logged Out Successfully." />
+								)}
+							/>
+						</Switch>
+					</Col>
+				</Row>
+			</Container>
+			<Footer />
 		</Router>
 	);
-}
+};
 
 export default App;
