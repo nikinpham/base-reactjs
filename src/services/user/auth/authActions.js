@@ -10,8 +10,9 @@ export const authenticateUser = (username, password) => async (dispatch) => {
 			username: username,
 			password: password,
 		});
-		localStorage.setItem("jwtToken", response.data.token);
-		dispatch(success({ username: response.data.name, isLoggedIn: true }));
+		const { accessToken, user } = response.data;
+		localStorage.setItem("accessToken", accessToken);
+		dispatch(success({ username: user.username, isLoggedIn: true }));
 		return Promise.resolve(response.data);
 	} catch (error) {
 		dispatch(failure());
@@ -22,7 +23,7 @@ export const authenticateUser = (username, password) => async (dispatch) => {
 export const logoutUser = () => {
 	return (dispatch) => {
 		dispatch(logoutRequest());
-		localStorage.removeItem("jwtToken");
+		localStorage.removeItem("accessToken");
 		dispatch(success({ username: "", isLoggedIn: false }));
 	};
 };

@@ -1,15 +1,11 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 
-import { Container, Row, Col } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import NavigationBar from "./components/NavigationBar";
-import Welcome from "./pages/Welcome";
-import UserList from "./pages/User/UserList";
-import Register from "./pages/User/Register";
-import Login from "./pages/User/Login";
-import Footer from "./components/Footer";
+import { Login, Register, Dashboard, PageNotFound } from "./pages";
+import { Footer, NavigationBar } from "./components";
+
 require('dotenv').config();
 
 const App = () => {
@@ -25,25 +21,19 @@ const App = () => {
 	return (
 		<Router>
 			<NavigationBar />
-			<Container>
-				<Row>
-					<Col lg={12} className={"margin-top"}>
-						<Switch>
-							<Route path="/" exact component={Welcome} />
-							<Route path="/users" exact component={UserList} />
-							<Route path="/register" exact component={Register} />
-							<Route path="/login" exact component={Login} />
-							<Route
-								path="/logout"
-								exact
-								component={() => (
-									<Login message="User Logged Out Successfully." />
-								)}
-							/>
-						</Switch>
-					</Col>
-				</Row>
-			</Container>
+			<Switch>
+				<Route path="/" exact component={Login} />
+				<Route path="/dashboard" exact component={Dashboard} />
+				<Route path="/register" exact component={Register} />
+				<Route path="/404" exact component={PageNotFound} />
+				<Route
+					path="/logout"
+					exact
+					component={() => (
+						<Login message="User Logged Out Successfully." />
+					)}
+				/>
+			</Switch>
 			<Footer />
 		</Router>
 	);

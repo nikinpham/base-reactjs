@@ -1,0 +1,6 @@
+.auth-bg {
+  background: -webkit-gradient(linear, left top, right top, from(#4286f4), to(#373B44));
+  background: linear-gradient(to right, #4286f4, #373B44);
+  height: calc(100% - 115px);
+}
+/*# sourceMappingURL=Auth.css.map */

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faUserPlus,
-	faSignInAlt,
 	faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { logoutUser } from "../services/index";
@@ -22,11 +21,11 @@ const NavigationBar = () => {
 		<>
 			<div className="mr-auto"></div>
 			<Nav className="navbar-right">
-				<Link to={"register"} className="nav-link">
-					<FontAwesomeIcon icon={faUserPlus} /> Register
+				<Link to="register" className="nav-link">
+					<FontAwesomeIcon icon={faUserPlus} className="mr-1" /> Đăng ký
 				</Link>
-				<Link to={"login"} className="nav-link">
-					<FontAwesomeIcon icon={faSignInAlt} /> Login
+				<Link to="/" className="nav-link">
+					Đăng nhập
 				</Link>
 			</Nav>
 		</>
@@ -45,7 +44,7 @@ const NavigationBar = () => {
 				</Link>
 			</Nav> */}
 			<Nav className="navbar-right">
-				<Link to={"logout"} className="nav-link" onClick={logout}>
+				<Link to="logout" className="nav-link" onClick={logout}>
 					<FontAwesomeIcon icon={faSignOutAlt} /> Logout
 				</Link>
 			</Nav>
@@ -53,9 +52,9 @@ const NavigationBar = () => {
 	);
 
 	return (
-		<Navbar bg="dark" variant="dark">
-			<Link to={auth.isLoggedIn ? "home" : ""} className="navbar-brand">
-				Web Sida
+		<Navbar className="navigationBar">
+			<Link to={auth.isLoggedIn ? "dashboard" : ""} className="navbar-brand">
+				Company Name/Logo
 			</Link>
 			{auth.isLoggedIn ? userLinks : guestLinks}
 		</Navbar>
